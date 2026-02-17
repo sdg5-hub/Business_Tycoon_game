@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Lemonade Stand - Retro Terminal</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="crt-shell">
+    <div class="scanlines" aria-hidden="true"></div>
+
+    <header class="panel header-panel">
+      <div class="header-top-row">
+        <h1>LEMONADE STAND</h1>
+        <div class="header-actions">
+          <button id="newGameBtn" class="pill-btn" type="button">NEW GAME</button>
+          <button id="soundToggle" class="pill-btn" type="button" aria-pressed="false">ONLINE</button>
+        </div>
+      </div>
+      <p class="tagline">Undercut rivals. Grow your empire. Dominate the city.</p>
+      <p id="statusLine" class="status-line">Level 1 • Day 2 • 🌧️ RAINY • 1 Location • ONLINE</p>
+      <div class="progress-wrap" role="progressbar" aria-label="Level progress" aria-valuemin="0" aria-valuemax="100" aria-valuenow="18">
+        <div id="progressFill" class="progress-fill"></div>
+      </div>
+    </header>
+
+    <nav class="panel nav-panel" aria-label="Main navigation">
+      <button class="nav-item active" type="button" data-view="dashboard"><span>▣</span>DASHBOARD</button>
+      <button class="nav-item" type="button" data-view="business"><span>⌂</span>BUSINESS</button>
+      <button class="nav-item" type="button" data-view="upgrades"><span>▲</span>UPGRADES</button>
+      <button class="nav-item" type="button" data-view="multiplayer"><span>☍</span>MULTIPLAYER</button>
+      <button class="nav-item" type="button" data-view="log"><span>🗎</span>LOG</button>
+      <button class="nav-item" type="button" data-view="help"><span>?</span>HELP</button>
+      <button class="nav-item" type="button" data-view="highscores"><span>★</span>HIGHSCORES</button>
+    </nav>
+
+    <main class="panel main-panel">
+      <section id="view-dashboard" class="view-panel active">
+        <div class="main-header-row">
+          <h2 id="dayTitle">START DAY 2</h2>
+          <div class="header-inline-buttons">
+            <button id="strategyBtn" class="strategy-btn" type="button">Strategy</button>
+          </div>
+        </div>
+        <button id="runDayBtn" class="run-day-btn" type="button">▶ RUN DAY 2</button>
+
+        <section class="bottom-grid">
+          <article class="panel sub-panel stats-panel">
+            <h3>STATS</h3>
+            <div class="stat-row"><span>Cash:</span><strong id="cashValue">$14.55</strong></div>
+            <div class="stat-row"><span>Stock:</span><strong id="stockValue">26/50</strong></div>
+            <div class="stat-row"><span>Stands:</span><strong id="standsValue">1</strong></div>
+            <div class="stat-row"><span>Ad Level:</span><strong id="adValue">0</strong></div>
+            <div class="stat-row"><span>Sweetness:</span><strong id="sweetValue">Base</strong></div>
+
+            <div class="price-row">
+              <label for="priceInput">Your Price:</label>
+              <div class="price-input-wrap">
+                <span>$</span>
+                <input id="priceInput" type="number" step="0.01" min="0.05" value="1.00" />
+                <small>per unit</small>
+              </div>
+            </div>
+
+            <p id="priceWarning" class="warning-text">A bit high. Some customers deterred. Sweet spot: $0.30–$0.60</p>
+            <div class="stat-row"><span>Reputation:</span><strong id="repValue">7</strong></div>
+          </article>
+
+          <article class="panel sub-panel restock-panel">
+            <h3>RESTOCK</h3>
+            <p class="market-line">Market Price: <strong id="marketPrice">$0.23/unit</strong></p>
+            <p class="restock-tip">Buy inventory BEFORE starting the day!</p>
+
+            <label class="check-wrap">
+              <input id="autoBuyToggle" type="checkbox" />
+              <span>Auto-Buy Inventory</span>
+            </label>
+
+            <div class="restock-buttons">
+              <button type="button" data-restock="10">+10 ($2.27)</button>
+              <button type="button" data-restock="25">+25 ($5.69)</button>
+              <button type="button" data-restock="50">+50 ($11.37)</button>
+              <button type="button" data-restock="100">+100 ($22.75)</button>
+            </div>
+
+            <h3 class="sub-head">ACHIEVEMENTS</h3>
+            <div id="achievementList" class="mini-list"></div>
+          </article>
+        </section>
+      </section>
+
+      <section id="view-business" class="view-panel">
+        <h2>BUSINESS OVERVIEW</h2>
+        <p>Scale your lemonade network and survive market pressure.</p>
+        <div class="info-grid">
+          <div class="panel sub-panel"><h3>Current Capacity</h3><p id="businessCapacity"></p></div>
+          <div class="panel sub-panel"><h3>Daily Pressure</h3><p id="businessPressure"></p></div>
+        </div>
+      </section>
+
+      <section id="view-upgrades" class="view-panel">
+        <h2>UPGRADES</h2>
+        <p class="hint-text">More stands unlock after Day 3.</p>
+        <div class="upgrade-grid">
+          <article class="panel sub-panel">
+            <h3>Buy Additional Stand</h3>
+            <p id="standUpgradeText">Unlocks after Day 3.</p>
+            <button id="buyStandBtn" class="upgrade-btn" type="button">Buy Stand</button>
+          </article>
+          <article class="panel sub-panel">
+            <h3>Sweeter Lemonade</h3>
+            <p>Improves customer satisfaction and demand.</p>
+            <button id="buySweetBtn" class="upgrade-btn" type="button">Buy Sweeter Mix ($14.00)</button>
+          </article>
+          <article class="panel sub-panel">
+            <h3>Better Advertisement</h3>
+            <p>Increases foot traffic and brand awareness.</p>
+            <button id="buyAdBtn" class="upgrade-btn" type="button">Buy Ad Campaign ($18.00)</button>
+          </article>
+        </div>
+      </section>
+
+      <section id="view-multiplayer" class="view-panel">
+        <h2>MULTIPLAYER</h2>
+        <p>Local room-code simulation mode (prototype).</p>
+        <div class="panel sub-panel">
+          <div class="multi-row">
+            <button id="createRoomBtn" class="upgrade-btn" type="button">Create Room</button>
+            <input id="roomCodeInput" type="text" maxlength="6" placeholder="ENTER CODE" />
+            <button id="joinRoomBtn" class="upgrade-btn" type="button">Join Room</button>
+          </div>
+          <p id="multiplayerStatus" class="hint-text">No room active.</p>
+        </div>
+      </section>
+
+      <section id="view-log" class="view-panel">
+        <h2>LOG</h2>
+        <p>Track day-by-day outcomes, upgrades, and achievements.</p>
+        <div id="logList" class="panel log-list"></div>
+      </section>
+
+      <section id="view-help" class="view-panel">
+        <h2>HELP</h2>
+        <div class="panel sub-panel help-copy">
+          <p><strong>Goal:</strong> Grow cash, stands, and reputation while surviving harder market conditions.</p>
+          <p><strong>Pricing:</strong> Sweet spot is usually $0.30–$0.60. Too high hurts demand and reputation.</p>
+          <p><strong>Weather:</strong> Rain lowers demand most. Cloudy is moderate. Sunny is strongest.</p>
+          <p><strong>Upgrades:</strong> Sweeter lemonade raises demand and rep. Ads boost traffic. More stands increase sales capacity after Day 3.</p>
+          <p><strong>Difficulty:</strong> Every day raises market pressure and restock cost. Bad pricing is punished harder later.</p>
+          <p><strong>Highscores:</strong> Open HIGHSCORES to view saved local top runs (stored in browser localStorage).</p>
+          <p><strong>Achievements:</strong> Reach Day 10, Day 50, and Day 100.</p>
+        </div>
+      </section>
+
+      <section id="view-highscores" class="view-panel">
+        <h2>HIGHSCORES</h2>
+        <div class="highscore-actions">
+          <button id="saveScoreBtn" class="upgrade-btn" type="button">Save Current Run</button>
+          <button id="clearScoresBtn" class="upgrade-btn" type="button">Clear Scores</button>
+        </div>
+        <div id="highscoreList" class="panel log-list"></div>
+      </section>
+    </main>
+  </div>
+
+  <div id="strategyModal" class="modal" aria-hidden="true">
+    <div class="modal-backdrop" data-close-modal="true"></div>
+    <section class="panel modal-card" role="dialog" aria-modal="true" aria-labelledby="strategyTitle">
+      <div class="modal-head">
+        <h3 id="strategyTitle">STRATEGY TIPS</h3>
+        <button id="closeModalBtn" class="modal-close" type="button" aria-label="Close strategy modal">✕</button>
+      </div>
+      <p><strong>Price sweet spot:</strong> Keep price between $0.30 and $0.60 for strong demand and better reputation.</p>
+      <p><strong>Rainy day strategy:</strong> Lower price and lean on ads/sweetness for traction.</p>
+      <p><strong>Restock advice:</strong> Never start a day understocked. Use Auto-Buy before pressing RUN DAY.</p>
+    </section>
+  </div>
+
+  <script src="game.js"></script>
+</body>
+</html>
